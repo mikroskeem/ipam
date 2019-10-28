@@ -8,7 +8,7 @@ func CalculateParent(n net.IPNet) net.IPNet {
 	ones, bits := n.Mask.Size()
 
 	if ones > 0 {
-		ones -= 1
+		ones--
 	}
 
 	n.Mask = net.CIDRMask(ones, bits)

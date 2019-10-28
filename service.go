@@ -62,6 +62,7 @@ func New(config Config) (*Service, error) {
 	return newService, nil
 }
 
+// Service holds an information about subnets and network
 type Service struct {
 	logger  micrologger.Logger
 	storage microstorage.Storage

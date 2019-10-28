@@ -1,4 +1,4 @@
-// ipam provides IP address management functionality.
+// Package ipam provides IP address management functionality.
 package ipam
 
 import (
