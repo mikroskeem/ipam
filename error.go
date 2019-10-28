@@ -45,7 +45,7 @@ func IsIncorrectNumberOfBoundaries(err error) bool {
 	return microerror.Cause(err) == incorrectNumberOfBoundariesError
 }
 
-// IsIncorrectNumberOfFreeRangesError asserts incorrectNumberOfFreeRangesError.
+// IsIncorrectNumberOfFreeRanges asserts incorrectNumberOfFreeRangesError.
 func IsIncorrectNumberOfFreeRanges(err error) bool {
 	return microerror.Cause(err) == incorrectNumberOfFreeRangesError
 }
