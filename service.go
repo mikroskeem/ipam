@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"net"
-	"time"
 
 	"github.com/giantswarm/microerror"
 	"github.com/giantswarm/micrologger"
@@ -95,8 +94,6 @@ func (s *Service) listSubnets(ctx context.Context) ([]net.IPNet, error) {
 		existingSubnets = append(existingSubnets, *existingSubnet)
 	}
 
-	subnetCounter.Set(float64(len(existingSubnets)))
-
 	return existingSubnets, nil
 }
 
@@ -104,7 +101,6 @@ func (s *Service) listSubnets(ctx context.Context) ([]net.IPNet, error) {
 // from the configured network.
 func (s *Service) CreateSubnet(ctx context.Context, mask net.IPMask, annotation string, reserved []net.IPNet) (net.IPNet, error) {
 	s.logger.LogCtx(ctx, "level", "debug", "message", "creating subnet")
-	defer updateMetrics("create", time.Now())
 
 	existingSubnets, err := s.listSubnets(ctx)
 	if err != nil {
@@ -137,7 +133,6 @@ func (s *Service) CreateSubnet(ctx context.Context, mask net.IPMask, annotation 
 // meaning it can be given out again.
 func (s *Service) DeleteSubnet(ctx context.Context, subnet net.IPNet) error {
 	s.logger.LogCtx(ctx, "level", "debug", "message", fmt.Sprintf("deleting subnet %#q", subnet.String()))
-	defer updateMetrics("delete", time.Now())
 
 	k, err := microstorage.NewK(encodeKey(subnet))
 	if err != nil {
